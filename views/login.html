@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign-Up</title>
+</head>
+<body>
+    <center>
+        <h3>LOGIN</h3>
+        <form method="post" action="../controllers/loginCheck.php" enctype="">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        User Name:                             
+                    </td>
+                    <td>
+                        <input type="text" name="userName" value="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Password:
+                    </td>
+                    <td>
+                        <input type="password" name="password" value="">
+                    </td>
+                </tr>                                
+            </table>
+            <input type="submit" name="submit" value="Login">
+        </form>
+        <button onclick="reg()">Register</button>
+        </center>
+</body>
+</html>
+
+<script>
+    function reg(){
+        window.location.href="../views/register.html";
+    }
+</script>

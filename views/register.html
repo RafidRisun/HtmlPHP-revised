@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign-Up</title>
+</head>
+<body>
+    <center>
+        <div>
+            <h2>Sign Up</h2>
+            <form action="../controllers/signupCheck.php" method="post" onsubmit="return validate()">      
+                <table>
+                    <tr>
+                        <td>
+                            Full Name:
+                        </td>
+                        <td>
+                            <input type="text" name="fullName"id="fullName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            User Name:
+                        </td>
+                        <td>
+                            <input type="text" name="userName"id="userName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input type="text" name="email"id="email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Password:
+                        </td>
+                        <td>
+                            <input type="password" name="pass" id="pass">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Confirm Password:
+                        </td>
+                        <td>
+                            <input type="password" name="confirmpass" id="confirmpass">
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" name="signup" value="Register">                   
+            </form>
+        </div>
+    </center>
+</body>
+</html>
+
+<script>
+function validate() {
+    let fullName = document.getElementById('fullName').value;
+    let userName = document.getElementById('userName').value;
+    let email = document.getElementById('email').value;
+    let pass = document.getElementById('pass').value;
+    let confirmpass = document.getElementById('confirmpass').value;
+    
+    if (fullName.length < 5) {
+        alert("Full Name Must Be At Least 5 Letters Long");
+        return false;
+    }
+
+    if (userName.length < 5) {
+        alert("User Name Must Be At Least 5 Letters Long");
+        return false;
+    }
+
+    let emailRegex = /^\S+@\S+\.\S+$/;
+    if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address");
+        return false;
+    }
+
+    if (pass.length < 8) {
+        alert("Password must be at least 8 characters long");
+        return false;
+    }
+
+    if (pass !== confirmpass) {
+        alert("Passwords do not match");
+        return false;
+    }
+
+    return true;
+}
+</script>
