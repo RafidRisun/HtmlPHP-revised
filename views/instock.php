@@ -1,3 +1,10 @@
+<?php
+    require_once('../controllers/sessionCheck.php');
+    require_once('../models/productModel.php');
+    require_once('../models/cartModel.php');
+    $userName = $_SESSION['currentUserName'];
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,31 +69,33 @@
                 <li><a href="../views/homepage.php">Home</a></li>
                 <li><a href="../views/category.php">Category</a></li>
                 <li><a href="../views/instock.php">In Stock</a></li>
-                <li><a href="../views/orders.php">Orders</a></li>
+                <li><a href="../views/orders.php">Order History</a></li>
                 <li><a href="../views/dashboard.php">Dashboard</a></li>
                 <li><a href="../views/cart.php">Cart</a></li>
                 <li><a href="../views/aboutus.html">About Us</a></li>
+                <li><a href="../views/logout.php">Log Out</a></li>
             </ul>
         </nav>
     </header>
-    <h2>All Products</h2>
+    <h2>Items in stock</h2>
     <div class="products-container">
     <?php
-        require_once('../models/productModel.php');
-        $products = getAvailableProducts();
-        foreach ($products as $product) {
-            echo "<div class='product-card'>";
-            echo "<img src='" . $product['photo'] . "' class='product-img' alt='Product Image'>";
-            echo "<h3>" . $product['productName'] . "</h3>";
-            echo "<p>$" . $product['productPrice'] . "</p>";
-            echo "<form action='../controllers/cart.php' method='post'>";
-            echo "<input type='hidden' name='productName' value='" . $product['productName'] . "'>";
-            echo "<input type='hidden' name='productPrice' value='" . $product['productPrice'] . "'>";
-            echo "<input type='hidden' name='amount' value='" . $product['amount'] . "'>";
-            echo "<input type='hidden' name='availability' value='" . $product['availability'] . "'>";
-            echo "<button type='submit'>Add to Cart</button>";
-            echo "</form>";
-            echo "</div>";
+        $products = getInStock($userName);
+        if ($products !== null) {
+            foreach ($products as $product) {
+                echo "<div class='product-card'>";
+                echo "<img src='" . $product['photo'] . "' class='product-img' alt='Product Image'>";
+                echo "<h3>" . $product['productName'] . "</h3>";
+                echo "<p>$" . $product['productPrice'] . "</p>";
+                echo "<p>Total Amount: " . $product['totalAmount'] . "</p>";
+                echo "<form action='../controllers/deleteStock.php' method='post'>";
+                echo "<input type='hidden' name='productName' value='" . $product['productName'] . "'>";
+                
+                echo "</form>";
+                echo "</div>";
+            }
+        } else {
+            echo "<p>No products found</p>";
         }
     ?>
 </div>

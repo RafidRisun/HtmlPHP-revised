@@ -63,10 +63,11 @@
                 <li><a href="../views/homepage.php">Home</a></li>
                 <li><a href="../views/category.php">Category</a></li>
                 <li><a href="../views/instock.php">In Stock</a></li>
-                <li><a href="../views/orders.php">Orders</a></li>
+                <li><a href="../views/orders.php">Order History</a></li>
                 <li><a href="../views/dashboard.php">Dashboard</a></li>
                 <li><a href="../views/cart.php">Cart</a></li>
                 <li><a href="../views/aboutus.html">About Us</a></li>
+                <li><a href="../views/logout.php">Log Out</a></li>
             </ul>
         </nav>
     </header>
@@ -83,14 +84,16 @@
             echo "<form action='../controllers/cart.php' method='post'>";
             echo "<input type='hidden' name='productName' value='" . $product['productName'] . "'>";
             echo "<input type='hidden' name='productPrice' value='" . $product['productPrice'] . "'>";
-            echo "<input type='hidden' name='amount' value='" . $product['amount'] . "'>";
             echo "<input type='hidden' name='availability' value='" . $product['availability'] . "'>";
+            echo "<label for='amount-" . $product['productName'] . "'>Quantity:</label>";
+            echo "<input type='number' id='amount-" . $product['productName'] . "' name='amount' min='1' max='" . $product['amount'] . "' value='1'>";
             echo "<button type='submit'>Add to Cart</button>";
             echo "</form>";
             echo "</div>";
         }
     ?>
 </div>
+
 
 </body>
 </html>

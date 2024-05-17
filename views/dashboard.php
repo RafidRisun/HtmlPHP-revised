@@ -64,10 +64,11 @@
                 <li><a href="../views/homepage.php">Home</a></li>
                 <li><a href="../views/category.php">Category</a></li>
                 <li><a href="../views/instock.php">In Stock</a></li>
-                <li><a href="../views/orders.php">Orders</a></li>
+                <li><a href="../views/orders.php">Order History</a></li>
                 <li><a href="../views/dashboard.php">Dashboard</a></li>
                 <li><a href="../views/cart.php">Cart</a></li>
                 <li><a href="../views/aboutus.html">About Us</a></li>
+                <li><a href="../views/logout.php">Log Out</a></li>
             </ul>
         </nav>
     </header>

@@ -12,6 +12,17 @@
         }
     }
 
+    function deleteFromStock($userName, $productName){
+        $con = getConnection();
+        $sql = "delete from products where userName = '$userName', productName = '$productName'";
+        
+        if (mysqli_query($con, $sql)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     function getProduct($productName) {
         $con = getConnection();
         $sql = "select * from products where productName = '$productName'";

@@ -76,31 +76,34 @@
                 <li><a href="../views/homepage.php">Home</a></li>
                 <li><a href="../views/category.php">Category</a></li>
                 <li><a href="../views/instock.php">In Stock</a></li>
-                <li><a href="../views/orders.php">Orders</a></li>
+                <li><a href="../views/orders.php">Order History</a></li>
                 <li><a href="../views/dashboard.php">Dashboard</a></li>
                 <li><a href="../views/cart.php">Cart</a></li>
                 <li><a href="../views/aboutus.html">About Us</a></li>
+                <li><a href="../views/logout.php">Log Out</a></li>
             </ul>
         </nav>
     </header>
-    <h2>Orders</h2>
-    <p>Total Orders: <?php echo count($orders); ?></p>
+    <h2>Order History</h2>
+    <p>Total Orders: <?php $x = count($orders); if($x>0){echo $x;} ?></p>
     <div class="products-container">
-        <?php
-            if ($orders) {
-                foreach ($orders as $order) {
-                    $productName = $order['productName'];
-                    $product = getProduct($productName);
-                    echo "<div class='product-card'>";
-                    echo "<img src='" . $product['photo'] . "' class='product-img' alt='Product Image'>";
-                    echo "<h3>" . $product['productName'] . "</h3>";
-                    echo "<p>$" . $product['productPrice'] . "</p>";
-                    echo "</div>";
-                }
-            } else {
-                echo "<p>No orders found</p>";
+    <?php
+        if ($orders) {
+            foreach ($orders as $order) {
+                $productName = $order['productName'];
+                $product = getProduct($productName);
+                echo "<div class='product-card'>";
+                echo "<img src='" . $product['photo'] . "' class='product-img' alt='Product Image'>";
+                echo "<h3>" . $product['productName'] . "</h3>";
+                echo "<p>$" . $product['productPrice'] . "</p>";
+                echo "<p>Amount:" . $order['amount'] . "</p>";
+                echo "</div>";
             }
-        ?>
-    </div>
+        } else {
+            echo "<p>No orders found</p>";
+        }
+    ?>
+</div>
+
 </body>
 </html>

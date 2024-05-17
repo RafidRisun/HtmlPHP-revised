@@ -17,7 +17,7 @@
         .products-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Center items horizontally */
+            justify-content: center;
             padding: 20px;
         }
         .product-card {
@@ -76,42 +76,46 @@
                 <li><a href="../views/homepage.php">Home</a></li>
                 <li><a href="../views/category.php">Category</a></li>
                 <li><a href="../views/instock.php">In Stock</a></li>
-                <li><a href="../views/orders.php">Orders</a></li>
+                <li><a href="../views/orders.php">Order History</a></li>
                 <li><a href="../views/dashboard.php">Dashboard</a></li>
                 <li><a href="../views/cart.php">Cart</a></li>
                 <li><a href="../views/aboutus.html">About Us</a></li>
+                <li><a href="../views/logout.php">Log Out</a></li>
             </ul>
         </nav>
     </header>
     <h2>Cart</h2>
     <div class="products-container">
-        <?php
-            $totalBill = 0; // Initialize total bill variable
-            if ($cartItems) {
-                foreach ($cartItems as $item) {
-                    $productName = $item['productName'];
-                    $product = getProduct($productName);
-                    $totalBill += $product['productPrice']; // Update total bill
-                    echo "<div class='product-card'>";
-                    echo "<img src='" . $product['photo'] . "' class='product-img' alt='Product Image'>";
-                    echo "<h3>" . $product['productName'] . "</h3>";
-                    echo "<p>$" . $product['productPrice'] . "</p>";
-                    
-                    echo "<form action='../controllers/deleteCartItem.php' method='post'>";
-                    echo "<input type='hidden' name='productName' value='" . $productName . "'>";
-                    echo "<button type='submit'>Delete</button>";
-                    echo "</form>";
-                    echo "</div>";
-                }
-                
-                echo "<h2>Total Bill: $" . $totalBill . "</h2>";
-                echo "<form action='../controllers/confirmCart.php' method='post'>";
-                echo "<button type='submit' name='confirmAll'>Confirm All</button>";
-                echo "</form>";
-            } else {
-                echo "<p>No items in the cart</p>";
-            }
-        ?>
+    <?php
+    $totalBill = 0;
+    if ($cartItems) {
+        foreach ($cartItems as $item) {
+            $productName = $item['productName'];
+            $product = getProduct($productName);
+            $itemTotal = $product['productPrice'] * $item['amount'];
+            $totalBill += $itemTotal;
+            echo "<div class='product-card'>";
+            echo "<img src='" . $product['photo'] . "' class='product-img' alt='Product Image'>";
+            echo "<h3>" . $product['productName'] . "</h3>";
+            echo "<p>Price: $" . $product['productPrice'] . "</p>";
+            echo "<p>Quantity: " . $item['amount'] . "</p>";
+            echo "<p>Total: $" . $itemTotal . "</p>";
+            echo "<form action='../controllers/deleteCartItem.php' method='post'>";
+            echo "<input type='hidden' name='productName' value='" . $productName . "'>";
+            echo "<button type='submit'>Delete</button>";
+            echo "</form>";
+            echo "</div>";
+        }
+        
+        echo "<h2>Total Bill: $" . $totalBill . "</h2>";
+        echo "<form action='../controllers/confirmCart.php' method='post'>";
+        echo "<button type='submit' name='confirmAll'>Confirm All</button>";
+        echo "</form>";
+    } else {
+        echo "<p>No items in the cart</p>";
+    }
+?>
+
     </div>
 </body>
 
